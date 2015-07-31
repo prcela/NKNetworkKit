@@ -23,7 +23,7 @@ public class NKProcessor: NSObject {
     }
     
     public class func process(request: NKWebRequest,
-        success: ((NSObject) -> Void)?,
+        success: ((NKWebResponse) -> Void)?,
         failure: ((NSError) -> Void)?,
         finish: (() -> Void)?)
     {
@@ -42,7 +42,7 @@ public class NKProcessor: NSObject {
     }
     
     class func processDataRequest(request: NKWebRequest, session: NSURLSession,
-        success: ((NSObject) -> Void)?,
+        success: ((NKWebResponse) -> Void)?,
         failure: ((NSError) -> Void)?,
         finish: (() -> Void)?)
     {

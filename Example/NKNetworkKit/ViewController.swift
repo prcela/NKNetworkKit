@@ -21,8 +21,8 @@ class ViewController: UIViewController {
         
         // same request but now with success handler
         NKProcessor.process(request,
-            success: {object in
-                let result = (object as! NKWebResponse).parsedJsonObject() as! NSDictionary
+            success: {response in
+                let result = response.parsedJsonObject() as! NSDictionary
                 NSLog("response: \(result)")
             },
             failure: nil,
@@ -38,8 +38,8 @@ class ViewController: UIViewController {
         NSLog("Sending %@", postRequest.description)
         
         NKProcessor.process(postRequest,
-            success: {object in
-                let result = (object as! NKWebResponse).parsedJsonObject() as! NSDictionary
+            success: {response in
+                let result = response.parsedJsonObject() as! NSDictionary
                 NSLog("Result of simple JSON post as dictionary: \(result)")
             },
             failure: nil, finish: nil)
