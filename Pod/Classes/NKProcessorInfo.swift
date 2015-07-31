@@ -10,6 +10,10 @@ import Reachability
 
 public let NKNotificationWebRequestError = "NotificationWebRequestError"
 
+/*
+Class that holds info about all actual downloading requests and errors that appeared during single application run.
+Singleton instance of this class is using network reachability closures in order to automatically continue stopped downloads.
+*/
 
 public class NKProcessorInfo: NSObject {
     public static var shared = NKProcessorInfo()
@@ -24,7 +28,7 @@ public class NKProcessorInfo: NSObject {
         
         reach.reachableBlock = {(reach) in
             
-            
+            // continue suspended downloads with resume data
             for fdi in self.downloads
             {
                 if (fdi.task.state == .Suspended || fdi.task.state == .Completed)

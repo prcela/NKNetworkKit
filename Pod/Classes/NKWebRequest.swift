@@ -13,23 +13,8 @@ public class NKWebRequest: NSMutableURLRequest
     public var queue: NSOperationQueue?
     public var delegate: NSURLSessionDelegate?
     
-    public convenience init(host:String, path:String?)
-    {
-        var fullPath:String
-        if path != nil
-        {
-            fullPath = host.stringByAppendingPathComponent(path!)
-        }
-        else
-        {
-            fullPath = host
-        }
-        let url = NSURL(string: fullPath.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
-        
-        self.init(URL: url!)
-    }
     
-    public convenience init(method:String, host:String, path:String?, params:String?)
+    public convenience init(host:String, path:String? = nil, params:String? = nil, method:String? = nil)
     {
         var fullPath:String
         if path != nil
@@ -43,8 +28,12 @@ public class NKWebRequest: NSMutableURLRequest
         let url = NSURL(string: fullPath)
         self.init(URL: url!)
         
-        HTTPMethod = method
-        setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        if method != nil
+        {
+            HTTPMethod = method!
+            setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        }
+        
         if params != nil
         {
             var paramsEscaped = params!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
@@ -56,7 +45,7 @@ public class NKWebRequest: NSMutableURLRequest
         }
     }
     
-    public convenience init(host:String, path:String?, jsonData:NSData)
+    public convenience init(host:String, path:String? = nil, postJsonData:NSData)
     {
         var fullPath:String
         if path != nil
@@ -73,13 +62,7 @@ public class NKWebRequest: NSMutableURLRequest
         HTTPMethod = "POST"
         setValue("application/json", forHTTPHeaderField:"Accept")
         setValue("application/json", forHTTPHeaderField:"Content-Type")
-        setValue("\(jsonData.length)", forHTTPHeaderField:"Content-Length")
-        HTTPBody = jsonData
+        setValue("\(postJsonData.length)", forHTTPHeaderField:"Content-Length")
+        HTTPBody = postJsonData
     }
-}
-
-
-public class NKDownloadWebRequest: NKWebRequest
-{
-    var downloadFilePath: String?
 }

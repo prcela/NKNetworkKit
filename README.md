@@ -21,7 +21,7 @@
 Simple request:
 
 ```swift
-	let request = NKWebRequest(host: "http://ip.jsontest.com", path: "")
+	let request = NKWebRequest(host: "http://ip.jsontest.com")
 	NKProcessor.process(request)
 ```
 
@@ -45,7 +45,7 @@ Post some json data:
 	let data = NSJSONSerialization.dataWithJSONObject(["text":"example_text"],
         options:NSJSONWritingOptions(0),
         error:nil)
-    let postRequest = NKWebRequest(host: "http://httpbin.org", path: "post", jsonData: data!)
+    let postRequest = NKWebRequest(host: "http://httpbin.org", path: "post", postJsonData: data!)
     NSLog("Sending %@", postRequest.description)
     NKProcessor.process(postRequest,
         success: {response in

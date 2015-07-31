@@ -7,7 +7,9 @@
 //
 
 
+// Web request processor
 public class NKProcessor: NSObject {
+    
     static var defaultConfiguration = NKProcessor.defaultSessionConfiguration()
     
     class func defaultSessionConfiguration() -> NSURLSessionConfiguration
@@ -17,15 +19,10 @@ public class NKProcessor: NSObject {
         return sessionConfig
     }
     
-    public class func process(request: NKWebRequest)
-    {
-        process(request, success: nil, failure: nil, finish: nil)
-    }
-    
     public class func process(request: NKWebRequest,
-        success: ((NKWebResponse) -> Void)?,
-        failure: ((NSError) -> Void)?,
-        finish: (() -> Void)?)
+        success: ((NKWebResponse) -> Void)? = nil,
+        failure: ((NSError) -> Void)? = nil,
+        finish: (() -> Void)? = nil)
     {
         var session: NSURLSession
         
@@ -42,9 +39,9 @@ public class NKProcessor: NSObject {
     }
     
     class func processDataRequest(request: NKWebRequest, session: NSURLSession,
-        success: ((NKWebResponse) -> Void)?,
-        failure: ((NSError) -> Void)?,
-        finish: (() -> Void)?)
+        success: ((NKWebResponse) -> Void)? = nil,
+        failure: ((NSError) -> Void)? = nil,
+        finish: (() -> Void)? = nil)
     {
         let task = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
             let httpResp = response as? NSHTTPURLResponse
@@ -54,9 +51,10 @@ public class NKProcessor: NSObject {
             webResponse.statusCode = httpResp?.statusCode ?? 0
 
             
-            NSLog("Finished request %@ with status: %ld", request.URL!, webResponse.statusCode)
+            NSLog("Finished request \(request.URL!) with status: \(webResponse.statusCode)")
             
 #if DEBUG
+            // Dump small responses into console
             if (data.length < 1000)
             {
                 if let strData = NSString(data: data, encoding: NSUTF8StringEncoding) where strData.length > 0
@@ -118,8 +116,10 @@ public class NKProcessor: NSObject {
         task.resume()
     }
     
+    // Start or resume task.
     public class func startOrResumeDownloadTaskWithURL(url: NSURL, downloadPath:String, delegateQueue queue:NSOperationQueue?)
     {
+        // if file is already downloading
         if let fdi = NKProcessorInfo.shared.infoForUrl(url)
         {
             let session = NSURLSession(configuration: defaultConfiguration, delegate: fdi, delegateQueue: queue)
@@ -127,10 +127,10 @@ public class NKProcessor: NSObject {
             switch fdi.task!.state
             {
             case .Suspended:
-                // nastavi gdje je stao
+                // resume
                 fdi.task!.resume()
             case .Canceling:
-                // napravi novi task sa postojećim podacima
+                // create new task with resume data
                 if let resumeData = fdi.resumeData
                 {
                     fdi.task = session.downloadTaskWithResumeData(resumeData)
@@ -148,8 +148,7 @@ public class NKProcessor: NSObject {
         }
         else
         {
-            
-            
+            // create new download task with given url
             let fdi = NKFileDownloadInfo(url: url, downloadFilePath: downloadPath)
             let session = NSURLSession(configuration: defaultConfiguration, delegate: fdi, delegateQueue: queue)
             fdi.task = session.downloadTaskWithURL(url)

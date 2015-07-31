@@ -6,11 +6,11 @@
 //  Copyright (c) 2015 prcela. All rights reserved.
 //
 
-
+// Global constants for notifications
 public let NKNotificationDownloadTaskDidFinish = "NKNotificationDownloadTaskDidFinish"
 public let NKNotificationDownloadTaskDidResumeData = "NKNotificationDownloadTaskDidResumeData"
 
-
+// MARK: - File download info
 public class NKFileDownloadInfo: NSObject {
     public var url: NSURL
     public var task: NSURLSessionDownloadTask!
@@ -27,8 +27,10 @@ public class NKFileDownloadInfo: NSObject {
     }
 }
 
+// MARK: - Session delegate
 extension NKFileDownloadInfo: NSURLSessionDownloadDelegate
 {
+    // didFinishDownloadingToURL
     public func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL)
     {
         NSLog("Did finish download to url: %@", location)
@@ -64,11 +66,13 @@ extension NKFileDownloadInfo: NSURLSessionDownloadDelegate
     }
 
 
+    // didWriteData
     public func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64)
     {
         setValue(Float(Double(totalBytesWritten)/Double(totalBytesExpectedToWrite)), forKey: "downloadRatio")
     }
     
+    // didResumeAtOffset
     public func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64)
     {
         NSLog("Did resume at offset %lld", fileOffset)
@@ -78,6 +82,7 @@ extension NKFileDownloadInfo: NSURLSessionDownloadDelegate
         }
     }
     
+    // didCompleteWithError
     public func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
         
         if error != nil
