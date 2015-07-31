@@ -81,12 +81,23 @@ At any moment you can check the progress ratio and task status of downloading fi
 
 Note that you can use your own NSOperationQueue when you are willing to download too many files. Your queue is defining rules of max concurent downloads.
 
-One more thing, connect the download progress ratio with UIProgressView:
+One more thing, connect the download progress ratio with your custom class (i.e. derive MyProgressView from UIProgressView):
 
 ```swift
     if let dfi = NKProcessorInfo.shared.infoForUrl(url!)
     {
-        dfi.addObserver(progressView, forKeyPath: "downloadRatio", options: NSKeyValueObservingOptions.allZeros, context: nil)
+        dfi.addObserver(myProgressView, forKeyPath: "downloadRatio", options: NSKeyValueObservingOptions.allZeros, context: nil)
+    }
+
+    class MyProgressView: UIProgressView
+    {
+        override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>)
+        {
+            let fdi = object as! NKFileDownloadInfo
+            dispatch_async(dispatch_get_main_queue()) {
+                self.setProgress(fdi.downloadRatio, animated: false)
+            }
+        }
     }
 ```
 
@@ -105,7 +116,7 @@ pod "NKNetworkKit"
 
 ## Author
 
-prcela, kresimir.prcela@gmail.com
+Krešimir Prcela, kresimir.prcela@gmail.com
 
 ## License
 
