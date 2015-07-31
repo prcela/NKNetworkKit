@@ -10,18 +10,15 @@
 Pod::Spec.new do |s|
   s.name             = "NKNetworkKit"
   s.version          = "0.1.0"
-  s.summary          = "A short description of NKNetworkKit."
+  s.summary          = "Hide the coplexity behind the network operations with swift."
   s.description      = <<-DESC
-                       An optional longer description of NKNetworkKit
-
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
+                       Hide the coplexity behind the network operations with swift....
                        DESC
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/NKNetworkKit"
+  s.homepage         = "https://github.com/prcela/NKNetworkKit"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "prcela" => "kresimir.prcela@gmail.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/NKNetworkKit.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/prcela/NKNetworkKit.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.platform     = :ios, '8.0'
@@ -34,5 +31,5 @@ Pod::Spec.new do |s|
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'Reachability', '~> 3.2'
 end
