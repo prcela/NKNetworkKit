@@ -11,13 +11,12 @@
 ## Features
 
  - Easy syntax for sending request
- - Handling response in place with closures
+ - Handling web response in place with closures
  - Posting json data
  - Mechanism for starting and automatic resuming of file download
+ - Observe downloading progress ratio
 
 ## Basic usage
-
-
 
 Simple request:
 
