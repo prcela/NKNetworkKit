@@ -12,7 +12,10 @@ Pod::Spec.new do |s|
   s.version          = "0.1.0"
   s.summary          = "Hides the coplexity behind the network operations with swift."
   s.description      = <<-DESC
-                       Hides the coplexity behind the network operations with swift....
+                       Hides the coplexity behind the network operations with swift. 
+                       The network requests are added to NSOperationQueue so they are evaluated asynchronously.
+                       Simple closures for handling success, failure and finish events.
+                       Observing mechanism for downloading progress.
                        DESC
   s.homepage         = "https://github.com/prcela/NKNetworkKit"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
