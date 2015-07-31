@@ -10,9 +10,9 @@
 Pod::Spec.new do |s|
   s.name             = "NKNetworkKit"
   s.version          = "0.1.0"
-  s.summary          = "Hide the coplexity behind the network operations with swift."
+  s.summary          = "Hides the coplexity behind the network operations with swift."
   s.description      = <<-DESC
-                       Hide the coplexity behind the network operations with swift....
+                       Hides the coplexity behind the network operations with swift....
                        DESC
   s.homepage         = "https://github.com/prcela/NKNetworkKit"
   # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
