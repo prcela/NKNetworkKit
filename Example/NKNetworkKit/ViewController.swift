@@ -15,7 +15,34 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        NKProcessorInfo.shared
+        // some simple request
+        let request = NKWebRequest(host: "http://ip.jsontest.com", path: "")
+        NKProcessor.process(request)
+        
+        // same request but now with success handler
+        NKProcessor.process(request,
+            success: {object in
+                let result = (object as! NKWebResponse).parsedJsonObject() as! NSDictionary
+                NSLog("response: \(result)")
+            },
+            failure: nil,
+            finish: nil)
+        
+        // post some json object
+        let data = NSJSONSerialization.dataWithJSONObject(["text":"example_text"],
+            options:NSJSONWritingOptions(0),
+            error:nil)
+
+        let postRequest = NKWebRequest(host: "http://httpbin.org", path: "post", jsonData: data!)
+        
+        NSLog("Sending %@", postRequest.description)
+        
+        NKProcessor.process(postRequest,
+            success: {object in
+                let result = (object as! NKWebResponse).parsedJsonObject() as! NSDictionary
+                NSLog("Result of simple JSON post as dictionary: \(result)")
+            },
+            failure: nil, finish: nil)
     }
 
     override func didReceiveMemoryWarning() {
