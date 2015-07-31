@@ -21,13 +21,13 @@ NKProcessor is adding request to operation queue and processing it asynchronousl
 To handle the response, add these closures:
 
 ```swift
-        NKProcessor.process(request,
-            success: {object in
-                let result = (object as! NKWebResponse).parsedJsonObject() as! NSDictionary
-                NSLog("response: \(result)")
-            },
-            failure: nil,
-            finish: nil)
+    NKProcessor.process(request,
+        success: {object in
+            let result = (object as! NKWebResponse).parsedJsonObject() as! NSDictionary
+            NSLog("response: \(result)")
+        },
+        failure: nil,
+        finish: nil)
 ```
 
 Post some json data:
@@ -49,23 +49,23 @@ Post some json data:
 Or, download a file:
 
 ```swift
-let url = NSURL(string: "http://www.virtualmechanics.com/support/tutorials-spinner/Simple.pdf")
-let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-let downloadPath = documentsPath.stringByAppendingPathComponent("simple.pdf")
-NKProcessor.startOrResumeDownloadTaskWithURL(url!, downloadPath: downloadPath, delegateQueue: nil)
+    let url = NSURL(string: "http://www.virtualmechanics.com/support/tutorials-spinner/Simple.pdf")
+    let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+    let downloadPath = documentsPath.stringByAppendingPathComponent("simple.pdf")
+    NKProcessor.startOrResumeDownloadTaskWithURL(url!, downloadPath: downloadPath, delegateQueue: nil)
 ```
 
-Observe the event When download is completed:
+Observe the event of completed download:
 
 ```swift
-let nc = NSNotificationCenter.defaultCenter()
-nc.addObserver(self, selector: "downloadTaskDidFinish:", name: NKNotificationDownloadTaskDidFinish, object: nil)
+    let nc = NSNotificationCenter.defaultCenter()
+    nc.addObserver(self, selector: "downloadTaskDidFinish:", name: NKNotificationDownloadTaskDidFinish, object: nil)
 
 
-func downloadTaskDidFinish(notification: NSNotification)
-{
-    let fdi = notification.object as! NKFileDownloadInfo
-}
+    func downloadTaskDidFinish(notification: NSNotification)
+    {
+        let fdi = notification.object as! NKFileDownloadInfo
+    }
 ```
 
 Inside the info object there is the url of the completed download.
