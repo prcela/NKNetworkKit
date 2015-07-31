@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 prcela. All rights reserved.
 //
 
-public class NKWebRequestError: NSObject
+public class NKRequestError: NSObject
 {
     public var timestamp: NSDate
     public var url: NSURL

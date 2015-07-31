@@ -7,7 +7,7 @@
 //
 
 
-public class NKWebResponse: NSObject
+public class NKResponse: NSObject
 {
     public var statusCode: Int = 0
     public var data: NSData?

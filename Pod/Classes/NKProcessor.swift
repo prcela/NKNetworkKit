@@ -19,8 +19,8 @@ public class NKProcessor: NSObject {
         return sessionConfig
     }
     
-    public class func process(request: NKWebRequest,
-        success: ((NKWebResponse) -> Void)? = nil,
+    public class func process(request: NKRequest,
+        success: ((NKResponse) -> Void)? = nil,
         failure: ((NSError) -> Void)? = nil,
         finish: (() -> Void)? = nil)
     {
@@ -38,15 +38,15 @@ public class NKProcessor: NSObject {
         processDataRequest(request, session: session, success: success, failure: failure, finish: finish)
     }
     
-    class func processDataRequest(request: NKWebRequest, session: NSURLSession,
-        success: ((NKWebResponse) -> Void)? = nil,
+    class func processDataRequest(request: NKRequest, session: NSURLSession,
+        success: ((NKResponse) -> Void)? = nil,
         failure: ((NSError) -> Void)? = nil,
         finish: (() -> Void)? = nil)
     {
         let task = session.dataTaskWithRequest(request, completionHandler: { (data, response, error) -> Void in
             let httpResp = response as? NSHTTPURLResponse
 
-            let webResponse = NKWebResponse()
+            let webResponse = NKResponse()
             webResponse.data = data
             webResponse.statusCode = httpResp?.statusCode ?? 0
 
@@ -70,7 +70,7 @@ public class NKProcessor: NSObject {
             
             if (error != nil)
             {
-                let webReqError = NKWebRequestError(error: error, timestamp: NSDate(), url: request.URL!, statusCode: webResponse.statusCode)
+                let reqError = NKRequestError(error: error, timestamp: NSDate(), url: request.URL!, statusCode: webResponse.statusCode)
                 
                 NSLog("%@", error.localizedDescription)
                 
@@ -78,21 +78,21 @@ public class NKProcessor: NSObject {
                 failure?(error)
                 
                 dispatch_async(dispatch_get_main_queue(), {
-                    NKProcessorInfo.shared.errors.append(webReqError)
-                    NSNotificationCenter.defaultCenter().postNotificationName(NKNotificationWebRequestError,
-                        object:webReqError)
+                    NKProcessorInfo.shared.errors.append(reqError)
+                    NSNotificationCenter.defaultCenter().postNotificationName(NKNotificationRequestError,
+                        object:reqError)
                     })
             }
             else if (webResponse.statusCode >= 400 && webResponse.statusCode != 401)
             {
-                let webReqError = NKWebRequestError(error: error, timestamp: NSDate(), url: request.URL!, statusCode: webResponse.statusCode)
+                let reqError = NKRequestError(error: error, timestamp: NSDate(), url: request.URL!, statusCode: webResponse.statusCode)
                 
                 failure?(error)
                 
                 dispatch_async(dispatch_get_main_queue(), {
-                    NKProcessorInfo.shared.errors.append(webReqError)
-                    NSNotificationCenter.defaultCenter().postNotificationName(NKNotificationWebRequestError,
-                        object:webReqError)
+                    NKProcessorInfo.shared.errors.append(reqError)
+                    NSNotificationCenter.defaultCenter().postNotificationName(NKNotificationRequestError,
+                        object:reqError)
                     })
             }
             else

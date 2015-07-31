@@ -8,7 +8,7 @@
 
 import Reachability
 
-public let NKNotificationWebRequestError = "NotificationWebRequestError"
+public let NKNotificationRequestError = "NotificationRequestError"
 
 /*
 Class that holds info about all actual downloading requests and errors that appeared during single application run.
@@ -17,7 +17,7 @@ Singleton instance of this class is using network reachability closures in order
 
 public class NKProcessorInfo: NSObject {
     public static var shared = NKProcessorInfo()
-    public var errors:[NKWebRequestError] = []
+    public var errors:[NKRequestError] = []
     public var downloads:[NKFileDownloadInfo] = []
     
     override init()

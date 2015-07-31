@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 prcela. All rights reserved.
 //
 
-public class NKWebRequest: NSMutableURLRequest
+public class NKRequest: NSMutableURLRequest
 {
     public var notificationName: String?
     public var notificationObject: NSObject?

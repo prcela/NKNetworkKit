@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         // some simple request
-        let request = NKWebRequest(host: "http://ip.jsontest.com")
+        let request = NKRequest(host: "http://ip.jsontest.com")
         NKProcessor.process(request)
         
         // same request but now with success handler
@@ -33,7 +33,7 @@ class ViewController: UIViewController {
             options:NSJSONWritingOptions(0),
             error:nil)
 
-        let postRequest = NKWebRequest(host: "http://httpbin.org", path: "post", postJsonData: data!)
+        let postRequest = NKRequest(host: "http://httpbin.org", path: "post", postJsonData: data!)
         
         NSLog("Sending %@", postRequest.description)
         

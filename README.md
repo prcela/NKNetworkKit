@@ -5,8 +5,7 @@
 [![License](https://img.shields.io/cocoapods/l/NKNetworkKit.svg?style=flat)](http://cocoapods.org/pods/NKNetworkKit)
 [![Platform](https://img.shields.io/cocoapods/p/NKNetworkKit.svg?style=flat)](http://cocoapods.org/pods/NKNetworkKit)
 
-**NetworkKit is the swift library that hides some complexity of doing network request.
-**
+**NetworkKit is the swift library that hides some complexity of doing network request.**
 
 ## Features
 
@@ -21,7 +20,7 @@
 Simple request:
 
 ```swift
-	let request = NKWebRequest(host: "http://ip.jsontest.com")
+	let request = NKRequest(host: "http://ip.jsontest.com")
 	NKProcessor.process(request)
 ```
 
@@ -45,7 +44,7 @@ Post some json data:
 	let data = NSJSONSerialization.dataWithJSONObject(["text":"example_text"],
         options:NSJSONWritingOptions(0),
         error:nil)
-    let postRequest = NKWebRequest(host: "http://httpbin.org", path: "post", postJsonData: data!)
+    let postRequest = NKRequest(host: "http://httpbin.org", path: "post", postJsonData: data!)
     NSLog("Sending %@", postRequest.description)
     NKProcessor.process(postRequest,
         success: {response in
