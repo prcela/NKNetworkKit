@@ -17,6 +17,12 @@
 
 ## Basic usage
 
+Import this kit into your swift file:
+
+```swift
+import NKNetworkKit
+```
+
 Simple request:
 
 ```swift
