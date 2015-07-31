@@ -31,8 +31,8 @@ To handle the response, add these closures:
 
 ```swift
     NKProcessor.process(request,
-        success: {object in
-            let result = (object as! NKWebResponse).parsedJsonObject() as! NSDictionary
+        success: {response in
+            let result = response.parsedJsonObject() as! NSDictionary
             NSLog("response: \(result)")
         },
         failure: nil,
@@ -48,8 +48,8 @@ Post some json data:
     let postRequest = NKWebRequest(host: "http://httpbin.org", path: "post", jsonData: data!)
     NSLog("Sending %@", postRequest.description)
     NKProcessor.process(postRequest,
-        success: {object in
-            let result = (object as! NKWebResponse).parsedJsonObject() as! NSDictionary
+        success: {response in
+            let result = response.parsedJsonObject() as! NSDictionary
             NSLog("Result of simple JSON post as dictionary: \(result)")
         },
         failure: nil, finish: nil)
