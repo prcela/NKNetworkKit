@@ -12,7 +12,6 @@ Pod::Spec.new do |s|
   s.version          = "0.1.0"
   s.summary          = "Hides the coplexity behind the network operations with swift."
   s.description      = <<-DESC
-                       Hides the coplexity behind the network operations with swift. 
                        The network requests are added to NSOperationQueue so they are evaluated asynchronously.
                        Simple closures for handling success, failure and finish events.
                        Observing mechanism for downloading progress.
