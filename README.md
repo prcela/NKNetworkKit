@@ -70,9 +70,29 @@ Observe the event of completed download:
 
 Inside the info object there is the url of the completed download.
 
+Behind the scene, NKProcessor is keeping session, data and current state of all currently downloading tasks (files). 
+If network connection becomes offline and online again, the processor will automatically continue with file downloading.
 
+At any moment you can check the progress ratio and task status of downloading file:
+
+```swift
+    let fdi = NKProcessorInfo.shared.infoForUrl(url)
+```
+
+Note that you can use your own NSOperationQueue when you are willing to download too many files. Your queue is defining rules of max concurent downloads.
+
+One more thing, connect the download progress ratio with UIProgressView:
+
+```swift
+    if let dfi = NKProcessorInfo.shared.infoForUrl(url!)
+    {
+        dfi.addObserver(progressView, forKeyPath: "downloadRatio", options: NSKeyValueObservingOptions.allZeros, context: nil)
+    }
+```
 
 ## Requirements
+
+Swift, minimim iOS 8.0
 
 ## Installation
 
