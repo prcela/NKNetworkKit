@@ -6,10 +6,9 @@
 //  Copyright (c) 2015 prcela. All rights reserved.
 //
 
-import UIKit
 import Reachability
 
-let NKNotificationWebRequestError = "NotificationWebRequestError"
+public let NKNotificationWebRequestError = "NotificationWebRequestError"
 
 
 public class NKProcessorInfo: NSObject {

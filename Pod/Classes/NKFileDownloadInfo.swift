@@ -6,18 +6,17 @@
 //  Copyright (c) 2015 prcela. All rights reserved.
 //
 
-import UIKit
 
 public let NKNotificationDownloadTaskDidFinish = "NKNotificationDownloadTaskDidFinish"
 public let NKNotificationDownloadTaskDidResumeData = "NKNotificationDownloadTaskDidResumeData"
 
 
 public class NKFileDownloadInfo: NSObject {
-    var url: NSURL
-    var task: NSURLSessionDownloadTask!
-    var resumeData: NSData?
-    var downloadFilePath: String
-    var downloadRatio:Float = 0
+    public var url: NSURL
+    public var task: NSURLSessionDownloadTask!
+    public var resumeData: NSData?
+    public var downloadFilePath: String
+    public var downloadRatio:Float = 0
     
     public init(url:NSURL, downloadFilePath: String)
     {

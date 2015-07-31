@@ -6,12 +6,11 @@
 //  Copyright (c) 2015 prcela. All rights reserved.
 //
 
-import UIKit
 
 public class NKWebResponse: NSObject
 {
-    var statusCode: Int = 0
-    var data: NSData?
+    public var statusCode: Int = 0
+    public var data: NSData?
     
     public func isOk() -> Bool
     {

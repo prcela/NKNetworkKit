@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 prcela. All rights reserved.
 //
 
-import UIKit
-
 public class NKWebRequest: NSMutableURLRequest
 {
     public var notificationName: String?

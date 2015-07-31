@@ -6,16 +6,14 @@
 //  Copyright (c) 2015 prcela. All rights reserved.
 //
 
-import UIKit
-
 public class NKWebRequestError: NSObject
 {
-    var timestamp: NSDate
-    var url: NSURL
-    var error: NSError?
-    var statusCode: Int
+    public var timestamp: NSDate
+    public var url: NSURL
+    public var error: NSError?
+    public var statusCode: Int
     
-    init(error:NSError,timestamp:NSDate,url:NSURL,statusCode:Int)
+    public init(error:NSError,timestamp:NSDate,url:NSURL,statusCode:Int)
     {
         self.error = error
         self.timestamp = timestamp

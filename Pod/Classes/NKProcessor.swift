@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 prcela. All rights reserved.
 //
 
-import UIKit
 
 public class NKProcessor: NSObject {
     static var defaultConfiguration = NKProcessor.defaultSessionConfiguration()
