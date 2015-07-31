@@ -8,18 +8,18 @@
 
 import UIKit
 
-let NKNotificationDownloadTaskDidFinish = "NKNotificationDownloadTaskDidFinish"
-let NKNotificationDownloadTaskDidResumeData = "NKNotificationDownloadTaskDidResumeData"
+public let NKNotificationDownloadTaskDidFinish = "NKNotificationDownloadTaskDidFinish"
+public let NKNotificationDownloadTaskDidResumeData = "NKNotificationDownloadTaskDidResumeData"
 
 
-class NKFileDownloadInfo: NSObject {
+public class NKFileDownloadInfo: NSObject {
     var url: NSURL
     var task: NSURLSessionDownloadTask!
     var resumeData: NSData?
     var downloadFilePath: String
     var downloadRatio:Float = 0
     
-    init(url:NSURL, downloadFilePath: String)
+    public init(url:NSURL, downloadFilePath: String)
     {
         self.url = url
         self.downloadFilePath = downloadFilePath
@@ -30,7 +30,7 @@ class NKFileDownloadInfo: NSObject {
 
 extension NKFileDownloadInfo: NSURLSessionDownloadDelegate
 {
-    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL)
+    public func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL)
     {
         NSLog("Did finish download to url: %@", location)
         
@@ -65,12 +65,12 @@ extension NKFileDownloadInfo: NSURLSessionDownloadDelegate
     }
 
 
-    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64)
+    public func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64)
     {
         setValue(Float(Double(totalBytesWritten)/Double(totalBytesExpectedToWrite)), forKey: "downloadRatio")
     }
     
-    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64)
+    public func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64)
     {
         NSLog("Did resume at offset %lld", fileOffset)
         dispatch_async(dispatch_get_main_queue()) {
@@ -79,7 +79,7 @@ extension NKFileDownloadInfo: NSURLSessionDownloadDelegate
         }
     }
     
-    func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
+    public func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
         
         if error != nil
         {

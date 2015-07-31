@@ -13,9 +13,9 @@ let NKNotificationWebRequestError = "NotificationWebRequestError"
 
 
 public class NKProcessorInfo: NSObject {
-    static var shared = NKProcessorInfo()
-    var errors:[NKWebRequestError] = []
-    var downloads:[NKFileDownloadInfo] = []
+    public static var shared = NKProcessorInfo()
+    public var errors:[NKWebRequestError] = []
+    public var downloads:[NKFileDownloadInfo] = []
     
     override init()
     {
@@ -52,7 +52,7 @@ public class NKProcessorInfo: NSObject {
 
     }
     
-    func infoForUrl(url:NSURL) -> NKFileDownloadInfo?
+    public func infoForUrl(url:NSURL) -> NKFileDownloadInfo?
     {
         for fdi in downloads
         {

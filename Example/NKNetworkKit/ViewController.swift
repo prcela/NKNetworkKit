@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import NKNetworkKit
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        NKProcessorInfo.shared
     }
 
     override func didReceiveMemoryWarning() {
