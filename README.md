@@ -33,27 +33,43 @@ To handle the response, add these closures:
 Post some json data:
 
 ```swift
-		let data = NSJSONSerialization.dataWithJSONObject(["text":"example_text"],
-            options:NSJSONWritingOptions(0),
-            error:nil)
-        let postRequest = NKWebRequest(host: "http://httpbin.org", path: "post", jsonData: data!)
-        NSLog("Sending %@", postRequest.description)
-        NKProcessor.process(postRequest,
-            success: {object in
-                let result = (object as! NKWebResponse).parsedJsonObject() as! NSDictionary
-                NSLog("Result of simple JSON post as dictionary: \(result)")
-            },
-            failure: nil, finish: nil)
+	let data = NSJSONSerialization.dataWithJSONObject(["text":"example_text"],
+        options:NSJSONWritingOptions(0),
+        error:nil)
+    let postRequest = NKWebRequest(host: "http://httpbin.org", path: "post", jsonData: data!)
+    NSLog("Sending %@", postRequest.description)
+    NKProcessor.process(postRequest,
+        success: {object in
+            let result = (object as! NKWebResponse).parsedJsonObject() as! NSDictionary
+            NSLog("Result of simple JSON post as dictionary: \(result)")
+        },
+        failure: nil, finish: nil)
 ```
 
 Or, download a file:
 
 ```swift
-        let url = NSURL(string: "http://www.virtualmechanics.com/support/tutorials-spinner/Simple.pdf")
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-        let downloadPath = documentsPath.stringByAppendingPathComponent("simple.pdf")
-        NKProcessor.startOrResumeDownloadTaskWithURL(url!, downloadPath: downloadPath, delegateQueue: nil)
+let url = NSURL(string: "http://www.virtualmechanics.com/support/tutorials-spinner/Simple.pdf")
+let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
+let downloadPath = documentsPath.stringByAppendingPathComponent("simple.pdf")
+NKProcessor.startOrResumeDownloadTaskWithURL(url!, downloadPath: downloadPath, delegateQueue: nil)
 ```
+
+Observe the event When download is completed:
+
+```swift
+let nc = NSNotificationCenter.defaultCenter()
+nc.addObserver(self, selector: "downloadTaskDidFinish:", name: NKNotificationDownloadTaskDidFinish, object: nil)
+
+
+func downloadTaskDidFinish(notification: NSNotification)
+{
+    let fdi = notification.object as! NKFileDownloadInfo
+}
+```
+
+Inside the info object there is the url of the completed download.
+
 
 
 ## Requirements
