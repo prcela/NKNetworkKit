@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: beta-xcode6.3
+osx_image: xcode6.4
 cache: cocoapods
 podfile: Example/Podfile
 #before_install:
@@ -9,5 +9,5 @@ install:
 - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
 script:
 #- set -o pipefail && xcodebuild test -workspace Example/NKNetworkKit.xcworkspace -scheme NKNetworkKit-Example -sdk iphonesimulator8.1 -destination OS=8.1,name=iPhone ONLY_ACTIVE_ARCH=NO | xcpretty -c
-- set -o pipefail && xcodebuild test -workspace Example/NKNetworkKit.xcworkspace -scheme NKNetworkKit-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO clean build | xcpretty -c
+- set -o pipefail && xcodebuild test -workspace Example/NKNetworkKit.xcworkspace -scheme NKNetworkKit-Example -sdk iphonesimulator8.3 ONLY_ACTIVE_ARCH=NO clean build | xcpretty -c
 - pod lib lint --quick
