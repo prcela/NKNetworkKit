@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/cocoapods/l/NKNetworkKit.svg?style=flat)](http://cocoapods.org/pods/NKNetworkKit)
 [![Platform](https://img.shields.io/cocoapods/p/NKNetworkKit.svg?style=flat)](http://cocoapods.org/pods/NKNetworkKit)
 
-**NetworkKit is the swift library that hides some complexity of doing network request.**
+Swift library that hides some complexity of doing network requests.
 
 ## Features
 
