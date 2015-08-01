@@ -8,17 +8,17 @@ class TableOfContentsSpec: QuickSpec {
     override func spec() {
         describe("these will fail") {
 
-            it("can do maths") {
-                expect(1) == 2
-            }
-
-            it("can read") {
-                expect("number") == "string"
-            }
-
-            it("will eventually fail") {
-                expect("time").toEventually( equal("done") )
-            }
+//            it("can do maths") {
+//                expect(1) == 2
+//            }
+//
+//            it("can read") {
+//                expect("number") == "string"
+//            }
+//
+//            it("will eventually fail") {
+//                expect("time").toEventually( equal("done") )
+//            }
             
             context("these will pass") {
 
