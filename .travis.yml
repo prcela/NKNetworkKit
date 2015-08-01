@@ -1,10 +1,4 @@
-# references:
-# * http://www.objc.io/issue-6/travis-ci.html
-# * https://github.com/supermarin/xcpretty#usage
-
 language: objective-c
-osx_image: xcode6.4
-
 cache: cocoapods
 podfile: Example/Podfile
 before_install:
@@ -14,5 +8,4 @@ install:
 - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
 script:
 - set -o pipefail && xcodebuild test -workspace Example/NKNetworkKit.xcworkspace -scheme NKNetworkKit-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty -c
-# - xcodebuild test -workspace Example/NKNetworkKit.xcworkspace -scheme NKNetworkKit-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
 - pod lib lint --quick
