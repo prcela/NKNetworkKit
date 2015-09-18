@@ -33,9 +33,7 @@ public class NKRequest: NSMutableURLRequest
         
         if params != nil
         {
-            var paramsEscaped = params!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
-            paramsEscaped = paramsEscaped!.stringByReplacingOccurrencesOfString("+", withString:"%2B")
-            let postData = paramsEscaped!.dataUsingEncoding(NSUTF8StringEncoding)
+            let postData = params!.dataUsingEncoding(NSUTF8StringEncoding)
             let postLength = "\(postData!.length)"
             setValue(postLength, forHTTPHeaderField:"Content-Length")
             HTTPBody = postData
