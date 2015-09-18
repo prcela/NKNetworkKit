@@ -5,8 +5,8 @@ PODS:
     - FBSnapshotTestCase (~> 1.7)
     - Nimble (~> 0.4)
     - Quick (~> 0.3)
-  - NKNetworkKit (0.1.1):
-    - Reachability (~> 3.2)
+  - NKNetworkKit (0.2.0):
+    - Reachability
   - Quick (0.3.1)
   - Reachability (3.2)
 
@@ -25,8 +25,8 @@ SPEC CHECKSUMS:
   FBSnapshotTestCase: 3dc3899168747a0319c5278f5b3445c13a6532dd
   Nimble: 49b7a7da8919f42823d37c6d68cc6d15a7009f32
   Nimble-Snapshots: 216ae8c0ea3f4105be1606749fe15d8b2138af40
-  NKNetworkKit: 4d1df676d7203ec3f2ef73b7948d31a9f96050b6
+  NKNetworkKit: 06d22b0a0186ebad15210e5cf49e4cc7618485c7
   Quick: 824572d3d198d51e52cf4aa722cebf7e59952a35
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0.beta.4

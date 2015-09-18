@@ -69,7 +69,7 @@ public class NKProcessorInfo: NSObject {
     
     func infoForTask(task: NSURLSessionDownloadTask) -> (Int,NKFileDownloadInfo)?
     {
-        for (idx,fdi) in enumerate(downloads)
+        for (idx,fdi) in downloads.enumerate()
         {
             if fdi.task == task
             {

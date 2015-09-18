@@ -66,6 +66,7 @@ Or, download a file:
     let url = NSURL(string: "http://www.virtualmechanics.com/support/tutorials-spinner/Simple.pdf")
     let documentsPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
     let downloadPath = documentsPath.stringByAppendingPathComponent("simple.pdf")
+
     NKProcessor.startOrResumeDownloadTaskWithURL(url!, downloadPath: downloadPath, delegateQueue: nil)
 ```
 

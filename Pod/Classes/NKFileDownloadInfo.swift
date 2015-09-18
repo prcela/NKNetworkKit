@@ -37,27 +37,33 @@ extension NKFileDownloadInfo: NSURLSessionDownloadDelegate
         
         let fm = NSFileManager.defaultManager()
         setValue(1, forKey: "downloadRatio")
-        let folder = downloadFilePath.stringByDeletingLastPathComponent
-        var error:NSErrorPointer = nil
+        let folder = NSURL(string: downloadFilePath)!.URLByDeletingLastPathComponent!.absoluteString
         if !fm.fileExistsAtPath(folder)
         {
-            fm.createDirectoryAtPath(folder, withIntermediateDirectories: true, attributes: nil, error: error)
+            do {
+                try fm.createDirectoryAtPath(folder, withIntermediateDirectories: true, attributes: nil)
+            } catch let error as NSError {
+                print(error.description)
+            }
         }
         if fm.fileExistsAtPath(downloadFilePath)
         {
-            fm.removeItemAtPath(downloadFilePath, error:error)
+            do {
+                try fm.removeItemAtPath(downloadFilePath)
+            } catch let error as NSError {
+                print(error.description)
+            }
         }
-        fm.moveItemAtURL(location, toURL:NSURL(fileURLWithPath:downloadFilePath)!, error:error)
-        if (error != nil)
-        {
-            NSLog("%@", error.memory!.description);
-        }
-        else
-        {
+        
+        do {
+            try fm.moveItemAtURL(location, toURL:NSURL(fileURLWithPath:downloadFilePath))
             NSLog("File successfully moved to \(downloadFilePath)")
+        } catch let error as NSError {
+            print(error.description)
         }
+        
         dispatch_async(dispatch_get_main_queue()) {
-            if let idx = find(NKProcessorInfo.shared.downloads,self) {
+            if let idx = NKProcessorInfo.shared.downloads.indexOf(self) {
                 NKProcessorInfo.shared.downloads.removeAtIndex(idx)
             }
             NSNotificationCenter.defaultCenter().postNotificationName(NKNotificationDownloadTaskDidFinish,
@@ -88,7 +94,7 @@ extension NKFileDownloadInfo: NSURLSessionDownloadDelegate
         if error != nil
         {
             NSLog("Did complete with error: \(error!.description)")
-            if let resumeData = error!.userInfo?[NSURLSessionDownloadTaskResumeData] as? NSData
+            if let resumeData = error!.userInfo[NSURLSessionDownloadTaskResumeData] as? NSData
             {
                 self.resumeData = resumeData
             }

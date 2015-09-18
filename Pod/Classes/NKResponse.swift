@@ -21,9 +21,8 @@ public class NKResponse: NSObject
     {
         if let data = self.data
         {
-            return NSJSONSerialization.JSONObjectWithData(data,
-                options: NSJSONReadingOptions.MutableContainers,
-                error: nil)
+            return try? NSJSONSerialization.JSONObjectWithData(data,
+                options: NSJSONReadingOptions.MutableContainers)
         }
         else
         {

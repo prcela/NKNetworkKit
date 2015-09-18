@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "NKNetworkKit"
-  s.version          = "0.1.8"
+  s.version          = "0.2.0"
   s.summary          = "Leave the coplexity of network operations behind the scene. In Swift."
   s.description      = <<-DESC
                        The network requests are added to NSOperationQueue so they are evaluated asynchronously.
@@ -33,5 +33,5 @@ Pod::Spec.new do |s|
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  s.dependency 'Reachability', '~> 3.2'
+  s.dependency 'Reachability'
 end

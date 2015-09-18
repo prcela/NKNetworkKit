@@ -14,7 +14,7 @@ public class NKProcessor: NSObject {
     
     class func defaultSessionConfiguration() -> NSURLSessionConfiguration
     {
-        var sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
         sessionConfig.timeoutIntervalForRequest = 30
         return sessionConfig
     }
@@ -70,12 +70,12 @@ public class NKProcessor: NSObject {
             
             if (error != nil)
             {
-                let reqError = NKRequestError(error: error, timestamp: NSDate(), url: request.URL!, statusCode: webResponse.statusCode)
+                let reqError = NKRequestError(error: error!, timestamp: NSDate(), url: request.URL!, statusCode: webResponse.statusCode)
                 
-                NSLog("%@", error.localizedDescription)
+                NSLog("%@", error!.localizedDescription)
                 
                 
-                failure?(error)
+                failure?(error!)
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     NKProcessorInfo.shared.errors.append(reqError)
@@ -85,9 +85,9 @@ public class NKProcessor: NSObject {
             }
             else if (webResponse.statusCode >= 400 && webResponse.statusCode != 401)
             {
-                let reqError = NKRequestError(error: error, timestamp: NSDate(), url: request.URL!, statusCode: webResponse.statusCode)
+                let reqError = NKRequestError(error: error!, timestamp: NSDate(), url: request.URL!, statusCode: webResponse.statusCode)
                 
-                failure?(error)
+                failure?(error!)
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     NKProcessorInfo.shared.errors.append(reqError)

@@ -16,16 +16,13 @@ public class NKRequest: NSMutableURLRequest
     
     public convenience init(host:String, path:String? = nil, params:String? = nil, method:String? = nil)
     {
-        var fullPath:String
+
+        var url = NSURL(string: host)
         if path != nil
         {
-            fullPath = host.stringByAppendingPathComponent(path!)
+            url = url?.URLByAppendingPathComponent(path!)
         }
-        else
-        {
-            fullPath = host
-        }
-        let url = NSURL(string: fullPath)
+
         self.init(URL: url!)
         
         if method != nil
@@ -47,16 +44,11 @@ public class NKRequest: NSMutableURLRequest
     
     public convenience init(host:String, path:String? = nil, postJsonData:NSData)
     {
-        var fullPath:String
+        var url = NSURL(string: host)
         if path != nil
         {
-            fullPath = host.stringByAppendingPathComponent(path!)
+            url = url?.URLByAppendingPathComponent(path!)
         }
-        else
-        {
-            fullPath = host
-        }
-        let url = NSURL(string: fullPath)
         self.init(URL: url!)
         
         HTTPMethod = "POST"
