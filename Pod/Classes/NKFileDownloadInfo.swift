@@ -37,11 +37,11 @@ extension NKFileDownloadInfo: NSURLSessionDownloadDelegate
         
         let fm = NSFileManager.defaultManager()
         setValue(1, forKey: "downloadRatio")
-        let folder = downloadFileURL.URLByDeletingLastPathComponent!.absoluteString
-        if !fm.fileExistsAtPath(folder)
+        let folderURL = downloadFileURL.URLByDeletingLastPathComponent!
+        if !fm.fileExistsAtPath(folderURL.path!)
         {
             do {
-                try fm.createDirectoryAtPath(folder, withIntermediateDirectories: true, attributes: nil)
+                try fm.createDirectoryAtURL(folderURL, withIntermediateDirectories: true, attributes: nil)
             } catch let error as NSError {
                 print(error.description)
             }
