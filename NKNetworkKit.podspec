@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "NKNetworkKit"
-  s.version          = "0.2.3"
+  s.version          = "0.2.4"
   s.summary          = "Leave the coplexity of network operations behind the scene. In Swift."
   s.description      = <<-DESC
                        The network requests are added to NSOperationQueue so they are evaluated asynchronously.
