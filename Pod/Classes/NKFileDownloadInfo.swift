@@ -15,13 +15,13 @@ public class NKFileDownloadInfo: NSObject {
     public var url: NSURL
     public var task: NSURLSessionDownloadTask!
     public var resumeData: NSData?
-    public var downloadFilePath: String
+    public var downloadFileURL: NSURL
     public var downloadRatio:Float = 0
     
-    public init(url:NSURL, downloadFilePath: String)
+    public init(url:NSURL, downloadFileURL: NSURL)
     {
         self.url = url
-        self.downloadFilePath = downloadFilePath
+        self.downloadFileURL = downloadFileURL
         
         super.init()
     }
@@ -37,7 +37,7 @@ extension NKFileDownloadInfo: NSURLSessionDownloadDelegate
         
         let fm = NSFileManager.defaultManager()
         setValue(1, forKey: "downloadRatio")
-        let folder = NSURL(string: downloadFilePath)!.URLByDeletingLastPathComponent!.absoluteString
+        let folder = downloadFileURL.URLByDeletingLastPathComponent!.absoluteString
         if !fm.fileExistsAtPath(folder)
         {
             do {
@@ -46,18 +46,18 @@ extension NKFileDownloadInfo: NSURLSessionDownloadDelegate
                 print(error.description)
             }
         }
-        if fm.fileExistsAtPath(downloadFilePath)
+        if fm.fileExistsAtPath(downloadFileURL.path!)
         {
             do {
-                try fm.removeItemAtPath(downloadFilePath)
+                try fm.removeItemAtURL(downloadFileURL)
             } catch let error as NSError {
                 print(error.description)
             }
         }
         
         do {
-            try fm.moveItemAtURL(location, toURL:NSURL(fileURLWithPath:downloadFilePath))
-            NSLog("File successfully moved to \(downloadFilePath)")
+            try fm.moveItemAtURL(location, toURL:downloadFileURL)
+            NSLog("File successfully moved to \(downloadFileURL.path)")
         } catch let error as NSError {
             print(error.description)
         }

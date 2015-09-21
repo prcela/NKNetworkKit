@@ -117,13 +117,13 @@ public class NKProcessor: NSObject {
     }
     
     // Start or resume task.
-    public class func startOrResumeDownloadTaskWithURL(url: NSURL, downloadPath:String, delegateQueue queue:NSOperationQueue?)
+    public class func startOrResumeDownloadTaskWithURL(url: NSURL, downloadFileURL:NSURL, delegateQueue queue:NSOperationQueue?)
     {
         // if file is already downloading
         if let fdi = NKProcessorInfo.shared.infoForUrl(url)
         {
             let session = NSURLSession(configuration: defaultConfiguration, delegate: fdi, delegateQueue: queue)
-            fdi.downloadFilePath = downloadPath
+            fdi.downloadFileURL = downloadFileURL
             switch fdi.task!.state
             {
             case .Suspended:
@@ -149,7 +149,7 @@ public class NKProcessor: NSObject {
         else
         {
             // create new download task with given url
-            let fdi = NKFileDownloadInfo(url: url, downloadFilePath: downloadPath)
+            let fdi = NKFileDownloadInfo(url: url, downloadFileURL: downloadFileURL)
             let session = NSURLSession(configuration: defaultConfiguration, delegate: fdi, delegateQueue: queue)
             fdi.task = session.downloadTaskWithURL(url)
             NKProcessorInfo.shared.downloads.append(fdi)
