@@ -42,26 +42,18 @@ extension NKFileDownloadInfo: NSURLSessionDownloadDelegate
         let fm = NSFileManager.defaultManager()
         setValue(1, forKey: NKFileDownloadInfo.keyDownloadRatio)
         let folderURL = downloadFileURL.URLByDeletingLastPathComponent!
-        if !fm.fileExistsAtPath(folderURL.path!)
-        {
-            do {
-                try fm.createDirectoryAtURL(folderURL, withIntermediateDirectories: true, attributes: nil)
-            } catch let error as NSError {
-                print(error.description)
-            }
-        }
-        if fm.fileExistsAtPath(downloadFileURL.path!)
-        {
-            do {
-                try fm.removeItemAtURL(downloadFileURL)
-            } catch let error as NSError {
-                print(error.description)
-            }
-        }
-        
         do {
+            if !fm.fileExistsAtPath(folderURL.path!)
+            {
+                try fm.createDirectoryAtURL(folderURL, withIntermediateDirectories: true, attributes: nil)
+            }
+            if fm.fileExistsAtPath(downloadFileURL.path!)
+            {
+                try fm.removeItemAtURL(downloadFileURL)
+            }
             try fm.moveItemAtURL(location, toURL:downloadFileURL)
             NSLog("File successfully moved to \(downloadFileURL.path)")
+            
         } catch let error as NSError {
             print(error.description)
         }
