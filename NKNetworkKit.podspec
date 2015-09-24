@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "NKNetworkKit"
-  s.version          = "0.2.4"
+  s.version          = "0.2.5"
   s.summary          = "Leave the coplexity of network operations behind the scene. In Swift."
   s.description      = <<-DESC
                        The network requests are added to NSOperationQueue so they are evaluated asynchronously.
@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.author           = { "prcela" => "kresimir.prcela@gmail.com" }
   s.source           = { :git => "https://github.com/prcela/NKNetworkKit.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.social_media_url = 'https://twitter.com/kprcela'
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true

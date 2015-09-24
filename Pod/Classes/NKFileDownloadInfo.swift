@@ -16,7 +16,11 @@ public class NKFileDownloadInfo: NSObject {
     public var task: NSURLSessionDownloadTask!
     public var resumeData: NSData?
     public var downloadFileURL: NSURL
-    public var downloadRatio:Float = 0
+    public var downloadRatio:Float = 0 // observable value
+    public var finished = false // observable value
+    
+    public static let keyDownloadRatio = "downloadRatio"
+    public static let keyFinished = "finished"
     
     public init(url:NSURL, downloadFileURL: NSURL)
     {
@@ -36,7 +40,7 @@ extension NKFileDownloadInfo: NSURLSessionDownloadDelegate
         NSLog("Did finish download to url: %@", location)
         
         let fm = NSFileManager.defaultManager()
-        setValue(1, forKey: "downloadRatio")
+        setValue(1, forKey: NKFileDownloadInfo.keyDownloadRatio)
         let folderURL = downloadFileURL.URLByDeletingLastPathComponent!
         if !fm.fileExistsAtPath(folderURL.path!)
         {
@@ -63,6 +67,7 @@ extension NKFileDownloadInfo: NSURLSessionDownloadDelegate
         }
         
         dispatch_async(dispatch_get_main_queue()) {
+            self.setValue(true, forKey: NKFileDownloadInfo.keyFinished)
             if let idx = NKProcessorInfo.shared.downloads.indexOf(self) {
                 NKProcessorInfo.shared.downloads.removeAtIndex(idx)
             }
@@ -75,7 +80,7 @@ extension NKFileDownloadInfo: NSURLSessionDownloadDelegate
     // didWriteData
     public func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64)
     {
-        setValue(Float(Double(totalBytesWritten)/Double(totalBytesExpectedToWrite)), forKey: "downloadRatio")
+        setValue(Float(Double(totalBytesWritten)/Double(totalBytesExpectedToWrite)), forKey: NKFileDownloadInfo.keyDownloadRatio)
     }
     
     // didResumeAtOffset
