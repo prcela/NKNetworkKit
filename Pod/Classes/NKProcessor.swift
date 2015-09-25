@@ -117,7 +117,7 @@ public class NKProcessor: NSObject {
     }
     
     // Start or resume task.
-    public class func startOrResumeDownloadTaskWithURL(url: NSURL, downloadFileURL:NSURL, delegateQueue queue:NSOperationQueue?)
+    public class func startOrResumeDownloadTaskWithURL(url: NSURL, downloadFileURL:NSURL, delegateQueue queue:NSOperationQueue?) -> NKFileDownloadInfo
     {
         // if file is already downloading
         if let fdi = NKProcessorInfo.shared.infoForUrl(url)
@@ -145,6 +145,7 @@ public class NKProcessor: NSObject {
             default:
                 NSLog("Download task is already completed or running")
             }
+            return fdi
         }
         else
         {
@@ -154,6 +155,7 @@ public class NKProcessor: NSObject {
             fdi.task = session.downloadTaskWithURL(url)
             NKProcessorInfo.shared.downloads.append(fdi)
             fdi.task.resume()
+            return fdi
         }
     }
 }
